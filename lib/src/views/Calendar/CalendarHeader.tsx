@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { DatePickerView } from '../../DatePicker';
 import { SlideDirection } from './SlideTransition';
 import { useUtils } from '../../_shared/hooks/useUtils';
@@ -13,7 +14,6 @@ import {
   usePreviousMonthDisabled,
   useNextMonthDisabled,
 } from '../../_shared/hooks/date-helpers-hooks';
-import Button from '@material-ui/core/Button';
 
 
 export type ExportedCalendarHeaderProps<TDate> = Pick<
