@@ -1,6 +1,5 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import { ArrowLeftIcon } from './icons/ArrowLeft';
@@ -36,6 +35,8 @@ export interface ExportedArrowSwitcherProps {
 }
 
 interface ArrowSwitcherProps extends ExportedArrowSwitcherProps, React.HTMLProps<HTMLDivElement> {
+  prev?: boolean
+  next?: boolean
   isLeftDisabled: boolean;
   isLeftHidden?: boolean;
   isRightDisabled: boolean;
@@ -86,7 +87,7 @@ const PureArrowSwitcher = React.forwardRef<HTMLDivElement, ArrowSwitcherProps>((
 
   return (
     <div className={clsx(classes.root, className)} ref={ref} {...other}>
-      <IconButton
+      {props.prev && <IconButton
         data-mui-test="previous-arrow-button"
         size="small"
         aria-label={leftArrowButtonText}
@@ -99,13 +100,8 @@ const PureArrowSwitcher = React.forwardRef<HTMLDivElement, ArrowSwitcherProps>((
         })}
       >
         {isRtl ? rightArrowIcon : leftArrowIcon}
-      </IconButton>
-      {text && (
-        <Typography variant="subtitle1" display="inline">
-          {text}
-        </Typography>
-      )}
-      <IconButton
+      </IconButton>}
+      {props.next && <IconButton
         data-mui-test="next-arrow-button"
         size="small"
         aria-label={rightArrowButtonText}
@@ -117,7 +113,7 @@ const PureArrowSwitcher = React.forwardRef<HTMLDivElement, ArrowSwitcherProps>((
         })}
       >
         {isRtl ? leftArrowIcon : rightArrowIcon}
-      </IconButton>
+      </IconButton>}
     </div>
   );
 });
