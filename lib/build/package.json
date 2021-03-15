@@ -1,0 +1,92 @@
+{
+  "name": "@material-ui/pickers",
+  "version": "4.0.0-alpha.12",
+  "private": false,
+  "description": "React components, that implements material design pickers for material-ui v4",
+  "keywords": [
+    "material-ui",
+    "pickers",
+    "@material-ui/pickers",
+    "datepicker",
+    "timepicker",
+    "date-picker",
+    "time-picker",
+    "react",
+    "react-component",
+    "material design"
+  ],
+  "sideEffects": false,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mui-org/material-ui-pickers/issues"
+  },
+  "homepage": "https://material-ui-pickers.dev/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mui-org/material-ui-pickers"
+  },
+  "author": {
+    "name": "Dmitriy Kovalenko",
+    "email": "dmtr.kovalenko@outlook.com"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^5.0.0-alpha.5",
+    "@material-ui/lab": "^5.0.0-alpha.5",
+    "@types/react": "^16.8.6",
+    "date-fns": "^2.0.0",
+    "dayjs": "^1.8.17",
+    "luxon": "^1.21.3",
+    "moment": "^2.24.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@material-ui/lab": {
+      "optional": true
+    },
+    "date-fns": {
+      "optional": true
+    },
+    "dayjs": {
+      "optional": true
+    },
+    "luxon": {
+      "optional": true
+    },
+    "moment": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@date-io/date-fns": "^2.8.0",
+    "@date-io/dayjs": "^2.8.0",
+    "@date-io/luxon": "^2.8.0",
+    "@date-io/moment": "^2.8.0",
+    "clsx": "^1.0.2",
+    "prop-types": "^15.7.2",
+    "react-transition-group": "^4.4.1",
+    "rifm": "^0.12.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:typescript": "yarn rimraf src/__tests__/dist && tsc -p src/__tests__/tsconfig.json",
+    "test:date-fns": "UTILS=date-fns yarn test",
+    "test:dayjs": "UTILS=dayjs yarn test",
+    "test:luxon": "UTILS=luxon yarn test",
+    "test:moment": "UTILS=moment yarn test",
+    "start": "rollup --config rollup.config.dev.js --watch & npx tsc --watch",
+    "prebuild": "rimraf build",
+    "build:prepare-files": "node prepare-build-files.js",
+    "build:bundle": "rollup --config",
+    "build:typescript": "tsc --project tsconfig.json && tsc -p tsconfig.adapters.json",
+    "build": "yarn build:typescript && yarn build:bundle && yarn build:prepare-files",
+    "build:analyze": "yarn build",
+    "release": "yarn build && yarn publish --tag -f next build"
+  },
+  "main": "./dist/material-ui-pickers.js",
+  "module": "./index.js",
+  "typings": "./index.d.ts"
+}
