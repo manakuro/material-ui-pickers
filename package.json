@@ -2,7 +2,6 @@
   "version": "4.0.0-alpha.11",
   "private": true,
   "description": "Material-ui pickers root package",
-  "main": "index.js",
   "directories": {
     "doc": "docs",
     "lib": "lib"
@@ -78,5 +77,11 @@
   "resolutions": {
     "**/@babel/core": "^7.9.6",
     "**/webpack": "^4.43.0"
-  }
+  },
+  "files": [
+    "./lib/build"
+  ],
+  "main": "./lib/build/dist/material-ui-pickers.js",
+  "module": "./lib/build/index.js",
+  "typings": "./lib/build/index.d.ts"
 }
