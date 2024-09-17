@@ -1,14 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import clsx from 'clsx';
-import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import { DatePickerView } from '../../DatePicker';
 import { SlideDirection } from './SlideTransition';
 import { useUtils } from '../../_shared/hooks/useUtils';
-import { FadeTransitionGroup } from './FadeTransitionGroup';
 import { DateValidationProps } from '../../_helpers/date-utils';
 import { ArrowDropDownIcon } from '../../_shared/icons/ArrowDropDown';
 import { ArrowSwitcher, ExportedArrowSwitcherProps } from '../../_shared/ArrowSwitcher';
@@ -16,6 +14,7 @@ import {
   usePreviousMonthDisabled,
   useNextMonthDisabled,
 } from '../../_shared/hooks/date-helpers-hooks';
+
 
 export type ExportedCalendarHeaderProps<TDate> = Pick<
   CalendarHeaderProps<TDate>,
@@ -76,6 +75,12 @@ export const useStyles = makeStyles(
       overflow: 'hidden',
       cursor: 'pointer',
       marginRight: 'auto',
+      marginLeft: 'auto',
+      color: 'inherit',
+      paddingTop: 4,
+      paddingBottom: 4,
+      paddingLeft: 16,
+      paddingRight: 12,
     },
     monthText: {
       marginRight: 4,
@@ -101,7 +106,6 @@ export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
     disablePast,
     disableFuture,
     onMonthChange,
-    reduceAnimations,
     leftArrowButtonProps,
     rightArrowButtonProps,
     leftArrowIcon,
@@ -137,64 +141,61 @@ export function CalendarHeader<TDate>(props: CalendarHeaderProps<TDate>) {
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <div className={classes.monthTitleContainer} onClick={toggleView}>
-          <FadeTransitionGroup
-            reduceAnimations={reduceAnimations}
-            transKey={utils.format(month, 'month')}
+        <ArrowSwitcher
+          prev
+          leftArrowButtonProps={leftArrowButtonProps}
+          rightArrowButtonProps={rightArrowButtonProps}
+          leftArrowButtonText={leftArrowButtonText}
+          rightArrowButtonText={rightArrowButtonText}
+          leftArrowIcon={leftArrowIcon}
+          rightArrowIcon={rightArrowIcon}
+          onLeftClick={selectPreviousMonth}
+          onRightClick={selectNextMonth}
+          isLeftDisabled={isPreviousMonthDisabled}
+          isRightDisabled={isNextMonthDisabled}
+        />
+        <Button className={classes.monthTitleContainer} onClick={toggleView}>
+          <Typography
+            aria-live="polite"
+            data-mui-test="calendar-month-text"
+            align="center"
+            variant="subtitle1"
+            className={classes.monthText}
           >
-            <Typography
-              aria-live="polite"
-              data-mui-test="calendar-month-text"
-              align="center"
-              variant="subtitle1"
-              className={classes.monthText}
-            >
-              {utils.format(month, 'month')}
-            </Typography>
-          </FadeTransitionGroup>
-          <FadeTransitionGroup
-            reduceAnimations={reduceAnimations}
-            transKey={utils.format(month, 'year')}
+            {utils.format(month, 'month')}
+          </Typography>
+          <Typography
+            aria-live="polite"
+            data-mui-test="calendar-year-text"
+            align="center"
+            variant="subtitle1"
           >
-            <Typography
-              aria-live="polite"
-              data-mui-test="calendar-year-text"
-              align="center"
-              variant="subtitle1"
-            >
-              {utils.format(month, 'year')}
-            </Typography>
-          </FadeTransitionGroup>
+            {utils.format(month, 'year')}
+          </Typography>
           {views.length > 1 && (
-            <IconButton
-              size="small"
+            <ArrowDropDownIcon
               data-mui-test="calendar-view-switcher"
               onClick={toggleView}
-              className={classes.yearSelectionSwitcher}
               aria-label={getViewSwitchingButtonText(currentView)}
-            >
-              <ArrowDropDownIcon
-                className={clsx(classes.switchViewDropdown, {
-                  [classes.switchViewDropdownDown]: currentView === 'year',
-                })}
-              />
-            </IconButton>
+              className={clsx(classes.switchViewDropdown, {
+                [classes.switchViewDropdownDown]: currentView === 'year',
+              })}
+            />
           )}
-        </div>
-        <Fade in={currentView === 'date'}>
-          <ArrowSwitcher
-            leftArrowButtonProps={leftArrowButtonProps}
-            rightArrowButtonProps={rightArrowButtonProps}
-            leftArrowButtonText={leftArrowButtonText}
-            rightArrowButtonText={rightArrowButtonText}
-            leftArrowIcon={leftArrowIcon}
-            rightArrowIcon={rightArrowIcon}
-            onLeftClick={selectPreviousMonth}
-            onRightClick={selectNextMonth}
-            isLeftDisabled={isPreviousMonthDisabled}
-            isRightDisabled={isNextMonthDisabled}
-          />
-        </Fade>
+        </Button>
+        <ArrowSwitcher
+          next
+          leftArrowButtonProps={leftArrowButtonProps}
+          rightArrowButtonProps={rightArrowButtonProps}
+          leftArrowButtonText={leftArrowButtonText}
+          rightArrowButtonText={rightArrowButtonText}
+          leftArrowIcon={leftArrowIcon}
+          rightArrowIcon={rightArrowIcon}
+          onLeftClick={selectPreviousMonth}
+          onRightClick={selectNextMonth}
+          isLeftDisabled={isPreviousMonthDisabled}
+          isRightDisabled={isNextMonthDisabled}
+        />
       </div>
     </React.Fragment>
   );
